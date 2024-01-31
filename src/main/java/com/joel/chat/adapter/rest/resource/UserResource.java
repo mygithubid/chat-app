@@ -32,12 +32,12 @@ public class UserResource {
     @PostMapping
     public User createUser(@RequestBody User request) {
         var userRequest = new com.joel.chat.domain.usecase.user.model.User(
-                request.id(),
+                null,
                 request.username(),
                 request.password(),
                 request.firstName(),
                 request.lastName(),
-                request.createdAt()
+                null
         );
 
         var user = create.execute(userRequest);

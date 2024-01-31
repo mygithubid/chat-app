@@ -15,6 +15,23 @@ public class FindByIdImpl implements FindById {
 
     @Override
     public Optional<Message> query(Long id) {
-        return Optional.empty();
+        return messageGateway.findById(id).map(this::toMessage);
+    }
+
+    private Message toMessage(com.joel.chat.domain.model.Message message) {
+        return new Message(
+                message.id(),
+                message.content(),
+                message.read(),
+                new Message.User(
+                        message.sender().id(),
+                        message.sender().username()
+                ),
+                new Message.User(
+                        message.recipient().id(),
+                        message.recipient().username()
+                ),
+                message.createdAt()
+        );
     }
 }

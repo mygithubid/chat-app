@@ -15,14 +15,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageResource {
 
-    private final FindById findById;
+    private final FindById findMessageById;
     private final FindByReceiver findByReceiver;
     private final FindBySender findBySender;
-    private final Create create;
+    private final Create createMessage;
 
     @GetMapping("/{id}")
     public Message getMessage(@PathVariable("id") Long id) {
-        var message = findById.query(id);
+        var message = findMessageById.query(id);
         if (message.isEmpty()) {
             return emptyMessage();
         }
@@ -30,7 +30,7 @@ public class MessageResource {
         return toMessage(message.get());
     }
 
-    @GetMapping("/list/{receiverId}")
+    @GetMapping("/receive/list/{receiverId}")
     public List<Message> getReceiverMessages(@PathVariable("receiverId") Long receiverId) {
         var messages = findByReceiver.query(receiverId);
 
@@ -43,7 +43,7 @@ public class MessageResource {
                 .toList();
     }
 
-    @GetMapping("/list/{senderId}")
+    @GetMapping("/send/list/{senderId}")
     public List<Message> getSenderMessages(@PathVariable("senderId") Long senderId) {
         var messages = findBySender.query(senderId);
 
@@ -73,7 +73,7 @@ public class MessageResource {
                 null
         );
 
-        var createdMessage = create.execute(message);
+        var createdMessage = createMessage.execute(message);
         return toMessage(createdMessage);
     }
 
