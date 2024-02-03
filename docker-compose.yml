@@ -1,0 +1,20 @@
+version:   '3.8'
+services:
+  #frontend:
+  backend:
+    build: ./
+  postgres_db:
+    image: postgres:latest
+    container_name: PostgresCont
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=javateam
+      - POSTGRES_DB=chat-app
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+volumes:
+  postgres_db:
+    driver: local
