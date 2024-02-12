@@ -7,12 +7,15 @@ It is a Spring Boot application that uses Hibernate JPA to store messages in a P
 
 It features an Angular GUI
 
-The containerization via Docker is not yet working. The Dockerfile and docker-compose.yml are there, but the application does not start up correctly.
+jar:
+    ./mvnw package -DskipTests
 
-In order to run, you need to have a PostgreSQL database running on localhost:5432 with a database called "chat-app"
+build:
+    docker compose build
 
-Flyway will create the necessary tables
+up:
+    docker compose up
 
-To run: execute com.joel.chat.app.Starter
+Flyway will create the necessary tables in the database
 
 Swagger: http://localhost:8080/swagger-ui/index.html
